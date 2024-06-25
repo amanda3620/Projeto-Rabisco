@@ -123,11 +123,14 @@ import { useRouter } from 'next/router'
 export default function HeaderB() {
     const [searchTerm, setSearchTerm] = useState('')
     const router = useRouter()
+    const isProdutosPage = router.pathname === '/produtos' // Verifica se está na página de produtos
 
+    // Função para lidar com a submissão do formulário de busca
     const handleSearch = (e) => {
-        e.preventDefault()
+        e.preventDefault() // Evita o comportamento padrão do formulário
+        // Navega para a página de produtos com o termo de busca na query da URL
         router.push(`/produtos?search=${encodeURIComponent(searchTerm)}`)
-    };
+    }
 
     return (
         <nav className="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
@@ -171,17 +174,22 @@ export default function HeaderB() {
                         </li>
                     </ul>
 
-                    <form className="d-flex" onSubmit={handleSearch}>
-                        <input
-                            className="form-control me-2"
-                            type="search"
-                            placeholder="Search"
-                            aria-label="Search"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                        <button className="btn text-white fs-5 bi bi-search" type="submit"></button>
-                    </form>
+                    {/* Renderiza o formulário de busca apenas na página de produtos */}
+                    {isProdutosPage && (
+                        <form className="d-flex" onSubmit={handleSearch}>
+                            <input
+                                className="form-control me-2"
+                                type="search"
+                                placeholder="Buscar produtos..."
+                                aria-label="Search"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                            <button className="btn btn-outline-secondary" type="submit">
+                                Buscar
+                            </button>
+                        </form>
+                    )}
                 </div>
             </div>
         </nav>
