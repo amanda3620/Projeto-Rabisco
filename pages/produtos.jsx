@@ -7,8 +7,8 @@ import { useRouter } from 'next/router'
 
 function Produtos() {
     const [produtos, setProdutos] = useState([])
-    const [filteredProdutos, setFilteredProdutos] = useState([]);
-    const router = useRouter();
+    const [filteredProdutos, setFilteredProdutos] = useState([])
+    const router = useRouter()
     const searchTerm = router.query.search || '' // Obtém o searchTerm da query da URL
 
     useEffect(() => {
@@ -28,8 +28,8 @@ function Produtos() {
         // Filtra os produtos com base no searchTerm
         const filtered = produtos.filter(produto =>
             produto.nome.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        setFilteredProdutos(filtered);
+        )
+        setFilteredProdutos(filtered)
     }, [searchTerm, produtos])
 
     return (
